@@ -19,7 +19,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style1.css">
-
+    <script>
+  $(document).ready(function() {
+    $('#list').DataTable( {
+        scrollY:        '64vh',
+        searching: false,
+        paging:        false,
+    } );
+} );
+</script> 
 </head>
 <body>
       
@@ -93,8 +101,7 @@
   </div>
   <section class="home-section1">
       
-  <?php require 'delete.php'; ?>
-
+ 
 
       <form class="border shadow rounded-20 p-3" style="background-color: #fff; margin-top: -5px; padding-top: 30px; width: 90%; margin-right:auto; margin-left:auto; max-height:700px" action="" method="GET" >
       <label style="color: #11101d; font-size: 18px; font-weight: 400; margin-left: 170px; margin-top: 26px;">Filter:  </label>
@@ -167,77 +174,46 @@
 if(isset($_GET['users']) && isset($_GET['city']) && isset($_GET['specialty'])) {
   $keywords = $_GET['users'];
   $sql="SELECT * FROM doctors_list WHERE  CONCAT(specialty_ids) LIKE '%{$keywords}%'" ;
-  $sql="SELECT * FROM clinic WHERE  CONCAT(cname,city) LIKE '%{$keywords}%'" ;
-  $result = mysqli_query($conn, $sql);
+  $sql1="SELECT * FROM clinic WHERE  CONCAT(cname,city) LIKE '%{$keywords}%'" ;
+  $result = mysqli_query($conn, $sql, $sql1);
  
 }
 ?>
 
-<?php 
-            if($users == false):
-            
-                  $users = $_GET['users'];
 
-
-                  $query = "SELECT * FROM clinic WHERE cname='$users'";
-                  $query_run = mysqli_query($conn, $query);
-
-
-                          while ($rows=pg_fetch_array($query_run))
-                          {
-                      ?>
-
-<th><?=$rows['id']?></th>
-                <td><?=$rows['cname']?></td>
-                <td><?=$rows['username']?></td>
-                <td><?=$rows['phone']?></td>
-                <td><?=$rows['email']?></td>
-                <td><?=$rows['address']?></td>
-
-            
-            <?php } ?>
-              
-              
-
-<?php else: ?>
-
-                <?php 
+  <?php 
 								$list = $conn->query("SELECT * FROM users order by id asc");
                 
                 ?>
 
-<table class="table table-hover table-sm" style="width:1100px; border:none; margin-left: 63px; z-index: -10;" cellspacing="0">
-<thead>
+
+        <table class="table table-hover table-bordered table-sm" style="width:1150px" cellspacing="0" id="list">
+        <thead>
         <tr>
 
-          <th width="70" >ID</th>
+          <th width="100" >ID</th>
 
-          <th width="160">Image</th>
+          <th width="105" >Image</th>
 
-          <th width="520">Details</th>
+          <th width="350">Details</th>
 
-          <th>Action</th>
+          <th width="290" >Action</th>
 
           </tr>
         </thead>
-</table>
-
-<div style="width:1150px;overflow:auto; max-height:450px; margin: auto; z-index: 1;">
-        <table class="table table-hover table-sm" style="width:1100px; border:none; margin-top:-5px" cellspacing="0">
-        
           <?php  while($row=$list->fetch_assoc()):
-               
+                
             ?>
             <tbody >
           <tr >
 
-          <td width="70">
+          <td>
 
           <?php echo $row['id'];?>
           </td>
 
 
-              <td class="pt-2 pb-1" width="160" >
+              <td class="pt-2 pb-1">
 
 
              <?php   if(empty($row['image']))
@@ -249,53 +225,47 @@ if(isset($_GET['users']) && isset($_GET['city']) && isset($_GET['specialty'])) {
          } ?>
               </td>
 
-              <td class="text-left" width="520">
+              <td class="text-left">
                     
                     <p class="mb-0 mt-2">Clinic Name: <?php echo $row['cname']?></p>
 										 <p class="mb-0"><small>Email: <?php echo $row['email'] ?></small></p>
                      <p class="mb-0"><small>Clinic Location: <?php echo $row['address'] ?> <?php echo $row['city'] ?></small></p>
                      <p class="mb-0"><small>Contact Number: <?php echo $row['phone'] ?></small></p>
 
-
-                     
-
-                <?php $sql="SELECT * FROM doctors_list WHERE cname = '".$row['cname']."' ORDER BY id ASC" ;
-                      $res = mysqli_query($conn, $sql);
-                      while($row=$res->fetch_assoc()){
-                ?>
+        <?php $sql="SELECT * FROM doctors_list WHERE cname = '".$row['cname']."' ORDER BY id ASC" ;
+              $res = mysqli_query($conn, $sql);
+              while($row=$res->fetch_assoc()){
+        ?>
                      <p class="mb-0"><small>Specialty: <?php echo $row['specialty_ids'] ?></small></p>
                      
                      
                      <p class="mb-0 mt-2"><small>Doctor/s: <?php echo "Dr. ".$row['name'].', '.$row['name_pref'] ?></small></p>          
-                     
-                     
-              
-              </td>
-              
-             
-              
-              <td class="text-center pt-2">
+            
+            </td>
+            
+            <?php } ?>
 
+              <td class="text-center pt-2">
+              <a href="set_appointment.php?view=<?=$row['id']?>" class="btn btn-info btn-sm mt-5" >Set Appointment</a>
               <a href="set_appointment.php?view=<?=$row['id']?>" class="btn btn-secondary btn-sm mt-5" >View Schedule</a>
-              <a href="set_appointment.php?set=<?=$row['id']?>" class="btn btn-info btn-sm mt-5" >Set Appointment</a>
-              
+
 										
           </td>
-          <?php } ?>
+
+
 
 
           </tr>
           </tbody>
-          
           <?php endwhile; ?>
           
         </table>
 
-  </div>
+        
    
 </form>
 
-<?php endif; ?>
+<!-- END of list -->
 
 
 
@@ -306,7 +276,8 @@ if(isset($_GET['users']) && isset($_GET['city']) && isset($_GET['specialty'])) {
 
 
   <script src="script.js"></script>
-		    
+        
+  		    
 			  
 			
       

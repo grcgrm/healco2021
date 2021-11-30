@@ -95,17 +95,6 @@ if(isset($_POST['appoints'])){
 
   if ($result) {
 
-    echo "<script language = javascript>
-    Swal.fire(
-        'Success!',
-        'Appointment is Updated',
-        'success'
-    ).then((result) => {
-                         
-      window.location.href = 'appointment.php';
-    });
-    </script>";
-
    if($status == '1'){
        $appoint = $_GET['appoint'];
        $list = "SELECT * FROM appointment_list WHERE id='".$appoint."'";
@@ -149,7 +138,7 @@ if(isset($_POST['appoints'])){
                              </script>";
                              
                              
-                             } 
+                             }
                              else{	
                                  echo "<script language = javascript>
                                  Swal.fire(

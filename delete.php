@@ -14,7 +14,6 @@ $view = true;
 $cbc = true;
 $chol = true;
 $id = 0;
-$users = true;
 
 
 if(isset($_GET['id']))
@@ -265,11 +264,7 @@ if(isset($_GET['chol']))
           
       
      }
- if(isset($_GET['users']))
-     {
-          $users = false;
-          
-     }
+ 
 ?>
 <style>
      body{

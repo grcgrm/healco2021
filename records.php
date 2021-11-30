@@ -128,12 +128,9 @@
             foreach($query_run as $rows)
             {
          ?>
-         <div class="text1" style="font-family: Poppins; font-size: 18px; margin-left: 40px; margin-top: 20px; margin-bottom: -15px; color: rgb(29, 161, 84);"> 
-         
-         <i>Search Result:</i> 
-        
-        </div>
-        
+         <div class="text1"
+style="font-family: Poppins; font-size: 18px; margin-left: 40px; margin-top: 20px; margin-bottom: -15px; color: rgb(29, 161, 84);"
+> <i>Search Result:</i> </div>
          <table >
            <thead>
               <tr>
