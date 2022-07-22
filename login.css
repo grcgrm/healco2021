@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+
+body{
+    background-image: url(https://images.pexels.com/photos/5011647/pexels-photo-5011647.jpeg?cs=srgb&dl=pexels-rostislav-uzunov-5011647.jpg&fm=jpg);
+
+}
+
+form{
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px;
+    font-family: 'Poppins';
+    font-size: 15px;
+}
+h1{
+    font-weight:500;
+    color: rgb(22, 135, 163);
+    font-size: 30px;
+}
+.ca{
+    text-decoration: none;
+    color: rgb(29, 29, 29);
+
+}
+.home{
+    text-decoration: none;
+    color: rgb(110, 110, 110);
+    font-size: 12px;
+    border-radius: 5px;
+    box-shadow: 0 10px 5px 0 #0000;
+    
+}
+input{
+    font-size: 13px;
+}
